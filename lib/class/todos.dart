@@ -5,10 +5,10 @@ class Todos {
   int? userId;
 
   Todos({
-    required this.id,
-    required this.todo,
-    required this.completed,
-    required this.userId,
+    this.id,
+    this.todo,
+    this.completed,
+    this.userId,
   });
 
   factory Todos.fromJson(Map<String, Object?> json) => Todos(
@@ -17,6 +17,13 @@ class Todos {
         completed: json["completed"] as bool?,
         userId: json["userId"] as int?,
       );
+
+  Map<String, Object?> toJson() => {
+        "id": id,
+        "todo": todo,
+        "completed": completed,
+        "userId": userId,
+      };
   @override
   String toString() =>
       "Todos(id: $id, todo: $todo, completed: $completed, userId: $userId)";

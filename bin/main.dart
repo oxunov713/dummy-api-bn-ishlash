@@ -1,18 +1,19 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as myHTTP;
-import 'package:main/class/dummy.dart';
 
-void main() async {
-  String baseUrl = "https://dummyjson.com/todos";
-  Uri url = Uri.parse(baseUrl);
+import 'package:main/class/todos.dart';
 
-  myHTTP.Response response = await myHTTP.get(url);
+Future<void> main() async {
+  String baseUrl = "https://dummyjson.com";
+  Uri url = Uri.parse("$baseUrl/todos/add");
 
-  List<Dummy> mydummy =
-      List<Map<String, Object?>>.from(jsonDecode(response.body))
-          .map(Dummy.fromJson)
-          .toList();
-
-  print(response.body);
+  Todos todo = Todos( todo: "sds", completed: true, userId: 50);
+//! post
+  myHTTP.Response responsePost = await myHTTP.post(
+    url,
+    headers: <String, String>{"Content-Type": "application/json"},
+    body: jsonEncode(todo.toJson()),
+  );
+  print(responsePost.body);
 }
